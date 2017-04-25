@@ -20,20 +20,20 @@
     define('pdfjs/core/document', ['exports', 'pdfjs/shared/util',
       'pdfjs/core/primitives', 'pdfjs/core/stream', 'pdfjs/core/obj',
       'pdfjs/core/parser', 'pdfjs/core/crypto', 'pdfjs/core/evaluator',
-      'pdfjs/core/annotation'], factory);
+      'pdfjs/core/annotation', 'pdfjs/core/brps_annotation'], factory);
   } else if (typeof exports !== 'undefined') {
     factory(exports, require('../shared/util.js'), require('./primitives.js'),
       require('./stream.js'), require('./obj.js'), require('./parser.js'),
       require('./crypto.js'), require('./evaluator.js'),
-      require('./annotation.js'));
+      require('./annotation.js'), require('./brps_annotation.js'));
   } else {
     factory((root.pdfjsCoreDocument = {}), root.pdfjsSharedUtil,
       root.pdfjsCorePrimitives, root.pdfjsCoreStream,
       root.pdfjsCoreObj, root.pdfjsCoreParser, root.pdfjsCoreCrypto,
-      root.pdfjsCoreEvaluator, root.pdfjsCoreAnnotation);
+      root.pdfjsCoreEvaluator, root.pdfjsCoreAnnotation, root.pdfjsBrpsAnnotation);
   }
 }(this, function (exports, sharedUtil, corePrimitives, coreStream, coreObj,
-                  coreParser, coreCrypto, coreEvaluator, coreAnnotation) {
+                  coreParser, coreCrypto, coreEvaluator, coreAnnotation, pdfjsBrpsAnnotation) {
 
 var OPS = sharedUtil.OPS;
 var MissingDataException = sharedUtil.MissingDataException;

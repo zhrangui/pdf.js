@@ -190,3 +190,5 @@ if (document.readyState === 'interactive' ||
 } else {
   document.addEventListener('DOMContentLoaded', webViewerLoad, true);
 }
+
+window.webViewerLoad = webViewerLoad;

@@ -29,7 +29,8 @@
       'pdfjs-web/pdf_link_service', 'pdfjs-web/pdf_outline_viewer',
       'pdfjs-web/overlay_manager', 'pdfjs-web/pdf_attachment_viewer',
       'pdfjs-web/pdf_find_controller', 'pdfjs-web/pdf_find_bar',
-      'pdfjs-web/dom_events', 'pdfjs-web/pdfjs'],
+      'pdfjs-web/dom_events', 'pdfjs-web/pdfjs',
+      'pdfjs-web/brps_viewer'],
       factory);
   } else if (typeof exports !== 'undefined') {
     factory(exports, require('./ui_utils.js'), require('./download_manager.js'),
@@ -43,7 +44,8 @@
       require('./pdf_link_service.js'), require('./pdf_outline_viewer.js'),
       require('./overlay_manager.js'), require('./pdf_attachment_viewer.js'),
       require('./pdf_find_controller.js'), require('./pdf_find_bar.js'),
-      require('./dom_events.js'), require('./pdfjs.js'));
+      require('./dom_events.js'), require('./pdfjs.js'),
+      require('./brps_viewer.js'));
   } else {
     factory((root.pdfjsWebApp = {}), root.pdfjsWebUIUtils,
       root.pdfjsWebDownloadManager, root.pdfjsWebPDFHistory,
@@ -56,7 +58,8 @@
       root.pdfjsWebPDFLinkService, root.pdfjsWebPDFOutlineViewer,
       root.pdfjsWebOverlayManager, root.pdfjsWebPDFAttachmentViewer,
       root.pdfjsWebPDFFindController, root.pdfjsWebPDFFindBar,
-      root.pdfjsWebDOMEvents, root.pdfjsWebPDFJS);
+      root.pdfjsWebDOMEvents, root.pdfjsWebPDFJS,
+      root.brpsViewer);
   }
 }(this, function (exports, uiUtilsLib, downloadManagerLib, pdfHistoryLib,
                   preferencesLib, pdfSidebarLib, viewHistoryLib,
@@ -65,7 +68,7 @@
                   pdfDocumentPropertiesLib, handToolLib, pdfViewerLib,
                   pdfRenderingQueueLib, pdfLinkServiceLib, pdfOutlineViewerLib,
                   overlayManagerLib, pdfAttachmentViewerLib,
-                  pdfFindControllerLib, pdfFindBarLib, domEventsLib, pdfjsLib) {
+                  pdfFindControllerLib, pdfFindBarLib, domEventsLib, pdfjsLib, brpsViewer) {
 
 var UNKNOWN_SCALE = uiUtilsLib.UNKNOWN_SCALE;
 var DEFAULT_SCALE_VALUE = uiUtilsLib.DEFAULT_SCALE_VALUE;
@@ -1337,7 +1340,11 @@ var PDFViewerApplication = {
     window.addEventListener('afterprint', function windowAfterPrint() {
       eventBus.dispatch('afterprint');
     });
-    if (typeof PDFJSDev === 'undefined' || PDFJSDev.test('GENERIC')) {
+    /**
+    * Raymond@Brookfield.com
+    * pdf.js uses this function for upload button, it conflictes with other upload e.g. image
+    */
+    if (typeof PDFJSDev === 'undefined' /* || PDFJSDev.test('GENERIC') */) {
       window.addEventListener('change', function windowChange(evt) {
         var files = evt.target.files;
         if (!files || files.length === 0) {

@@ -76,6 +76,7 @@ AnnotationElementFactory.prototype =
 
         switch (fieldType) {
           case 'Tx':
+          case 'Sig':
             return new TextWidgetAnnotationElement(parameters);
           case 'Btn':
             if (parameters.data.radioButton) {
